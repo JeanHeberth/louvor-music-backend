@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -22,11 +21,11 @@ public class UserService {
     UserRepository userRepository;
 
     private final ModelMapper mapper = new ModelMapper();
-    private final Utils removerAcentos = new Utils();
+    private final Utils removeAcentos = new Utils();
 
 
     public User saveUser(@Valid UserRequest userRequest) {
-        User user = new User(userRequest.uuid(), removerAcentos.removerAcentos(userRequest.name()), removerAcentos.removerAcentos(userRequest.cargo()));
+        User user = new User(userRequest.uuid(), removeAcentos.removerAcentos(userRequest.name()), removeAcentos.removerAcentos(userRequest.cargo()));
         return userRepository.save(user);
 
 
