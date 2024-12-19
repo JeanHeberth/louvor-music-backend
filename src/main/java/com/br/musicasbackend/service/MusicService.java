@@ -1,6 +1,6 @@
 package com.br.musicasbackend.service;
 
-import com.br.musicasbackend.entity.Music;
+import com.br.musicasbackend.entity.model.Music;
 import com.br.musicasbackend.entity.request.MusicRequest;
 import com.br.musicasbackend.entity.response.MusicResponse;
 import com.br.musicasbackend.repository.MusicRepository;
@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.Normalizer;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,13 +21,8 @@ public class MusicService {
     @Autowired
     MusicRepository musicRepository;
 
-
-    private final ModelMapper mapper = new ModelMapper();
-    private final Utils removeAcentos = new Utils();
-
-
     public Music saveMusic(@Valid MusicRequest musicRequest) {
-        Music music = new Music(musicRequest.uuid(), removeAcentos.removerAcentos(musicRequest.music()), removeAcentos.removerAcentos(musicRequest.autor()), removeAcentos.removerAcentos(musicRequest.versao()));
+        Music music = new Music(musicRequest.uuid(), removerAcentos(musicRequest.music()), removerAcentos(musicRequest.autor()), removerAcentos(musicRequest.versao()));
         return musicRepository.save(music);
     }
 
@@ -54,5 +50,14 @@ public class MusicService {
         musicRepository.save(music);
         return new MusicResponse(music.getUuid(), music.getMusic(), music.getAutor(), music.getVersao());
 
+    }
+
+    public void deleteMusic(String uuid) {
+        musicRepository.deleteById(uuid);
+    }
+
+    public String removerAcentos(String texto) {
+        return Normalizer.normalize(texto, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "");
     }
 }

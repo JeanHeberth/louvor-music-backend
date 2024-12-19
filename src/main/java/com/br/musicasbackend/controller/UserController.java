@@ -1,6 +1,6 @@
 package com.br.musicasbackend.controller;
 
-import com.br.musicasbackend.entity.User;
+import com.br.musicasbackend.entity.model.User;
 import com.br.musicasbackend.entity.request.UserRequest;
 import com.br.musicasbackend.entity.response.UserResponse;
 import com.br.musicasbackend.service.UserService;

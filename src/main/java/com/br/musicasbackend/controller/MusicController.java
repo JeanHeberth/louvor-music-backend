@@ -1,6 +1,6 @@
 package com.br.musicasbackend.controller;
 
-import com.br.musicasbackend.entity.Music;
+import com.br.musicasbackend.entity.model.Music;
 import com.br.musicasbackend.entity.request.MusicRequest;
 import com.br.musicasbackend.entity.response.MusicResponse;
 import com.br.musicasbackend.service.MusicService;
@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("http://localhost:4200")
 public class MusicController {
 
     @Autowired
@@ -38,7 +39,14 @@ public class MusicController {
 
     @PutMapping("updateMusic/{uuid}")
     public ResponseEntity<MusicResponse> updateMusic(@PathVariable String uuid, @RequestBody @Valid MusicRequest musicRequest) {
+        System.out.println("Json Recebido: " + uuid);
         return ResponseEntity.ok(musicService.updateMusic(uuid, musicRequest));
+    }
+
+    @DeleteMapping("deleteMusic/{uuid}")
+    public ResponseEntity<Void> deleteMusic(@PathVariable String uuid) {
+        musicService.deleteMusic(uuid);
+        return ResponseEntity.noContent().build();
     }
 
 

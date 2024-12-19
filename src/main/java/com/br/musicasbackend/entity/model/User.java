@@ -1,4 +1,4 @@
-package com.br.musicasbackend.entity;
+package com.br.musicasbackend.entity.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

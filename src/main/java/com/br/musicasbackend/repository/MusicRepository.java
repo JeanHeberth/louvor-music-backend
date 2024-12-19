@@ -1,6 +1,6 @@
 package com.br.musicasbackend.repository;
 
-import com.br.musicasbackend.entity.Music;
+import com.br.musicasbackend.entity.model.Music;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
