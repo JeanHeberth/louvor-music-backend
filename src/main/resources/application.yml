@@ -3,7 +3,7 @@ spring:
     name: musicas-backend
   data:
     mongodb:
-      uri: ${MONGODB_URI}
+      uri: ${MONGO_URI}
       database: louvor
 server:
   port: 8088
